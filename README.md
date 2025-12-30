@@ -1,58 +1,29 @@
-Siap 👍
-Aku buatkan **README.md yang rapi, detail, dan profesional**, sesuai **struktur folder kamu sekarang** dan cocok untuk **developer lain yang mau clone & jalanin OCR PaddleOCR ini**.
+# OCR Service — PaddleOCR (Python)
 
-Kamu bisa **langsung copy–paste** ke `README.md`.
+Layanan OCR sederhana berbasis PaddleOCR (Python) untuk mengekstrak teks dari gambar atau dokumen. Dirancang sebagai service terpisah yang mudah diintegrasikan dengan backend lain (mis. Laravel).
 
----
+## Fitur
+- Ekstraksi teks dari gambar/dokumen
+- Output berupa teks mentah (raw text)
+- Dijalankan sebagai service terpisah — cocok diintegrasikan lewat command atau API
 
-```md
-# OCR Service – PaddleOCR (Python)
-
-Service OCR berbasis **PaddleOCR (Python)** yang digunakan untuk mengekstrak teks dari file gambar / dokumen.
-Project ini dirancang sebagai **service terpisah** yang bisa diintegrasikan dengan backend lain (contoh: Laravel).
-
----
-
-## 📂 Struktur Folder
-
-```
-
-OCR-SERVICE/
-├── app/
-│   ├── services/
-│   │   └── paddleocr/
-│   │       ├── **init**.py
-│   │       ├── ocr.py          # Logic utama OCR PaddleOCR
-│   │       └── main.py         # Entry point / runner
-│   └── **pycache**/
-│
-├── uploads/                   # Folder runtime upload (tidak di-push ke GitHub)
-├── venv/                      # Virtual environment (tidak di-push)
-├── .gitignore
-└── README.md
-
-````
-
----
-
-## ⚙️ Prasyarat
-
-Pastikan environment kamu sudah memenuhi syarat berikut:
-
-- **Python 3.9+** (disarankan 3.10)
-- **Git**
+## Prasyarat
+- Python 3.9+ (disarankan 3.10)
+- Git
 - OS: Windows / Linux / macOS
 
-Cek versi Python:
+Periksa versi Python:
+
 ```bash
 python --version
+```
 ````
 
 ---
 
-## 📥 Clone Repository
+## Instalasi
 
-Clone project dari GitHub:
+Clone repository:
 
 ```bash
 git clone https://github.com/USERNAME/REPOSITORY.git
@@ -63,56 +34,42 @@ cd OCR-SERVICE
 
 ---
 
-## 🐍 Membuat Virtual Environment
+## Virtual environment (disarankan)
 
-Disarankan **SELALU menggunakan virtual environment** agar dependency terisolasi.
+Windows:
 
-### Windows
-
-```bash
+```powershell
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### Linux / macOS
+Linux / macOS:
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-Jika berhasil, terminal akan berubah menjadi:
-
-```
-(venv)
-```
+Setelah aktif, prompt akan menampilkan `(venv)`.
 
 ---
 
-## 📦 Install Dependency
-
-Install semua dependency dari `requirements.txt`:
+## Install dependency
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Jika belum ada `requirements.txt`, buat dengan:
-
-```bash
-pip freeze > requirements.txt
-```
+Jika belum ada `requirements.txt`, buat dengan `pip freeze > requirements.txt` setelah menginstall dependency yang diperlukan.
 
 ---
 
-## 📁 Folder `uploads`
+## Folder `uploads`
 
-Folder `uploads/` digunakan untuk **menyimpan file sementara** (gambar / dokumen) yang akan diproses OCR.
+Gunakan folder `uploads/` untuk menyimpan file sementara yang akan diproses OCR. Folder ini di-ignore dari Git (lihat `.gitignore`).
 
-> Folder ini **tidak ikut GitHub** (sudah di-ignore di `.gitignore`).
-
-Jika belum ada, buat manual:
+Jika belum ada, buat dengan:
 
 ```bash
 mkdir uploads
@@ -120,91 +77,78 @@ mkdir uploads
 
 ---
 
-## ▶️ Menjalankan OCR Service
+## Menjalankan service
 
-Masuk ke folder paddleocr:
+Jalankan dari root project (direkomendasikan):
+
+```bash
+python app/main.py
+```
+
+Atau jika ada entrypoint di folder service:
 
 ```bash
 cd app/services/paddleocr
-```
-
-Jalankan service:
-
-```bash
 python main.py
 ```
 
-Jika berhasil, service siap menerima proses OCR.
+Jika berjalan, service akan siap menerima permintaan OCR.
 
 ---
 
-## 🧠 Cara Kerja Singkat
+## Cara kerja singkat
 
-1. File gambar/dokumen disimpan sementara di folder `uploads/`
-2. `ocr.py` memproses file menggunakan **PaddleOCR**
-3. Hasil OCR berupa **raw text**
-4. Output bisa dikirim kembali ke backend (Laravel / API / CLI)
+1. File disimpan sementara di `uploads/`
+2. `ocr.py` memproses file menggunakan PaddleOCR
+3. Hasil berupa teks mentah (raw text)
+4. Backend menerima path file dan mengolah hasil teks sesuai kebutuhan
 
 ---
 
-## 🔗 Integrasi dengan Backend (Laravel)
+## Integrasi dengan backend
 
-Biasanya service ini:
-
-* Dipanggil via **command / API**
-* Backend hanya mengirim **path file**
-* OCR service mengembalikan **hasil text**
+Umumnya dipakai lewat command atau API. Backend mengirimkan path file, service mengembalikan hasil teks.
 
 Contoh alur:
 
-```
 Laravel Upload → Python OCR → Raw Text → Simpan ke Database
-```
 
 ---
 
-## 🚫 File yang Tidak Masuk GitHub
+## File yang dikecualikan dari Git
 
-Berikut file/folder yang **dikecualikan**:
+- `venv/`
+- `uploads/`
+- `__pycache__/`
+- `.env`
 
-* `venv/`
-* `uploads/`
-* `__pycache__/`
-* `.env`
-
-Semua aturan ada di `.gitignore`.
+Aturan lengkap ada di `.gitignore`.
 
 ---
 
-## 📌 Catatan Penting
+## Catatan penting
 
-* Jangan upload `venv/` ke GitHub
-* Jangan commit file hasil OCR
-* Gunakan environment terpisah untuk production
-* Pastikan PaddleOCR sesuai arsitektur OS (CPU/GPU)
-
----
-
-## 👨‍💻 Author
-
-Dikembangkan oleh **Rizky Ramadhan**
-OCR Service menggunakan **PaddleOCR (Python)**
+- Jangan mengunggah `venv/` ke GitHub
+- Jangan commit file hasil OCR
+- Gunakan environment terpisah untuk production
+- Pastikan build PaddleOCR sesuai arsitektur (CPU/GPU)
 
 ---
 
-## 📄 License
+## Author
 
-Project ini bebas digunakan untuk kebutuhan internal / pembelajaran.
+Dikembangkan oleh Rizky Ramadhan
 
-```
+## Lisensi
+
+Bebas digunakan untuk keperluan internal dan pembelajaran.
 
 ---
 
-Kalau mau, aku bisa:
-- 🔥 Sesuaikan README untuk **production**
-- 🔥 Tambahin **API usage example**
-- 🔥 Buatin **Docker + docker-compose**
-- 🔥 Buatin **diagram arsitektur Laravel ↔ Python OCR**
+Jika ingin, saya bisa bantu:
+- Menyusun README khusus produksi
+- Menambahkan contoh penggunaan API/CLI
+- Menambahkan Docker + docker-compose
+- Membuat diagram arsitektur integrasi
 
-Tinggal bilang mau lanjut ke mana 🚀
-```
+Beritahu bagian mana yang ingin Anda kembangkan selanjutnya.
