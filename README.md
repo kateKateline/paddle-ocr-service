@@ -1,154 +1,77 @@
+
+---
+
 # OCR Service — PaddleOCR (Python)
 
-Layanan OCR sederhana berbasis PaddleOCR (Python) untuk mengekstrak teks dari gambar atau dokumen. Dirancang sebagai service terpisah yang mudah diintegrasikan dengan backend lain (mis. Laravel).
+Layanan OCR (Optical Character Recognition) berbasis **PaddleOCR** untuk ekstraksi teks dari gambar atau dokumen. Arsitektur ini dirancang sebagai *microservice* mandiri yang menjadi pelengkap untuk repositori **[bill-checker](https://www.google.com/search?q=https://github.com/USERNAME/bill-checker)**.
 
-## Fitur
-- Ekstraksi teks dari gambar/dokumen
-- Output berupa teks mentah (raw text)
-- Dijalankan sebagai service terpisah — cocok diintegrasikan lewat command atau API
+## 🚀 Fitur Utama
 
-## Prasyarat
-- Python 3.9+ (disarankan 3.10)
-- Git
-- OS: Windows / Linux / macOS
-
-Periksa versi Python:
-
-```bash
-python --version
-```
-````
+* **High Accuracy:** Menggunakan engine PaddleOCR yang dioptimalkan.
+* **Multi-format Support:** Mendukung ekstraksi teks dari berbagai format gambar dan dokumen.
+* **Decoupled Architecture:** Berjalan sebagai service terpisah untuk menjaga backend tetap ringan.
 
 ---
 
-## Instalasi
+## 🛠 Prasyarat Sistem
 
-Clone repository:
+* **OS:** Windows.
+* **Git:** Untuk manajemen repositori.
+* **Python:** v3.10.x
 
-```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd OCR-SERVICE
-```
+### Instalasi Python 3.10 (Windows)
 
-> Ganti `USERNAME/REPOSITORY` sesuai repo kamu.
-
----
-
-## Virtual environment (disarankan)
-
-Windows:
+Jika Anda belum memiliki Python 3.10, jalankan perintah ini di PowerShell untuk mengunduh dan menginstal secara otomatis:
 
 ```powershell
-python -m venv venv
-venv\Scripts\activate
+winget install Python.Python.3.10
+
 ```
-
-Linux / macOS:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-Setelah aktif, prompt akan menampilkan `(venv)`.
 
 ---
 
-## Install dependency
+## 💻 Panduan Instalasi
+
+### 1. Kloning Repositori
+
+```bash
+git clone https://github.com/KateKateline/paddle-ocr-service.git
+cd paddle-ocr-service
+
+```
+
+### 2. Konfigurasi Virtual Environment (VENV)
+
+```bash
+py -3.10 -m venv venv
+
+```
+
+### 3. Instalasi Dependency
+
+Pastikan virtual environment sudah aktif (muncul tanda `(venv)`), lalu jalankan:
 
 ```bash
 pip install --upgrade pip
-pip install -r requirements.txt
-```
+pip install paddlepaddle paddleocr fastapi uvicorn
 
-Jika belum ada `requirements.txt`, buat dengan `pip freeze > requirements.txt` setelah menginstall dependency yang diperlukan.
+```
 
 ---
 
-## Folder `uploads`
+## ⚙️ Menjalankan Service
 
-Gunakan folder `uploads/` untuk menyimpan file sementara yang akan diproses OCR. Folder ini di-ignore dari Git (lihat `.gitignore`).
-
-Jika belum ada, buat dengan:
+Jalankan service utama langsung dari root project menggunakan Uvicorn:
 
 ```bash
-mkdir uploads
+uvicorn app.main:app --reload
+
 ```
 
 ---
 
-## Menjalankan service
+## 📝 Note
 
-Jalankan dari root project (direkomendasikan):
-
-```bash
-python app/main.py
-```
-
-Atau jika ada entrypoint di folder service:
-
-```bash
-cd app/services/paddleocr
-python main.py
-```
-
-Jika berjalan, service akan siap menerima permintaan OCR.
+Service ini berfungsi untuk menerima kiriman gambar dari **[bill-checker](https://www.google.com/search?q=https://github.com/USERNAME/bill-checker)** dan mengembalikan hasil pembacaan teks (raw text) untuk diproses lebih lanjut oleh sistem utama.
 
 ---
-
-## Cara kerja singkat
-
-1. File disimpan sementara di `uploads/`
-2. `ocr.py` memproses file menggunakan PaddleOCR
-3. Hasil berupa teks mentah (raw text)
-4. Backend menerima path file dan mengolah hasil teks sesuai kebutuhan
-
----
-
-## Integrasi dengan backend
-
-Umumnya dipakai lewat command atau API. Backend mengirimkan path file, service mengembalikan hasil teks.
-
-Contoh alur:
-
-Laravel Upload → Python OCR → Raw Text → Simpan ke Database
-
----
-
-## File yang dikecualikan dari Git
-
-- `venv/`
-- `uploads/`
-- `__pycache__/`
-- `.env`
-
-Aturan lengkap ada di `.gitignore`.
-
----
-
-## Catatan penting
-
-- Jangan mengunggah `venv/` ke GitHub
-- Jangan commit file hasil OCR
-- Gunakan environment terpisah untuk production
-- Pastikan build PaddleOCR sesuai arsitektur (CPU/GPU)
-
----
-
-## Author
-
-Dikembangkan oleh Rizky Ramadhan
-
-## Lisensi
-
-Bebas digunakan untuk keperluan internal dan pembelajaran.
-
----
-
-Jika ingin, saya bisa bantu:
-- Menyusun README khusus produksi
-- Menambahkan contoh penggunaan API/CLI
-- Menambahkan Docker + docker-compose
-- Membuat diagram arsitektur integrasi
-
-Beritahu bagian mana yang ingin Anda kembangkan selanjutnya.
