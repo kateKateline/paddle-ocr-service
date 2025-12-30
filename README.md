@@ -53,6 +53,7 @@ Pastikan virtual environment sudah aktif (muncul tanda `(venv)`), lalu jalankan:
 
 ```bash
 pip install --upgrade pip
+pip install python-multipart
 pip install paddlepaddle paddleocr fastapi uvicorn
 
 ```
