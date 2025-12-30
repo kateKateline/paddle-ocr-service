@@ -1,202 +1,210 @@
 Siap 👍
-Kita fokus **best practice upload PaddleOCR (Python) ke GitHub** dari struktur yang kamu punya.
+Aku buatkan **README.md yang rapi, detail, dan profesional**, sesuai **struktur folder kamu sekarang** dan cocok untuk **developer lain yang mau clone & jalanin OCR PaddleOCR ini**.
 
-Struktur kamu sekarang:
+Kamu bisa **langsung copy–paste** ke `README.md`.
+
+---
+
+```md
+# OCR Service – PaddleOCR (Python)
+
+Service OCR berbasis **PaddleOCR (Python)** yang digunakan untuk mengekstrak teks dari file gambar / dokumen.
+Project ini dirancang sebagai **service terpisah** yang bisa diintegrasikan dengan backend lain (contoh: Laravel).
+
+---
+
+## 📂 Struktur Folder
 
 ```
+
 OCR-SERVICE/
 ├── app/
-├── uploads/
-├── venv/
+│   ├── services/
+│   │   └── paddleocr/
+│   │       ├── **init**.py
+│   │       ├── ocr.py          # Logic utama OCR PaddleOCR
+│   │       └── main.py         # Entry point / runner
+│   └── **pycache**/
+│
+├── uploads/                   # Folder runtime upload (tidak di-push ke GitHub)
+├── venv/                      # Virtual environment (tidak di-push)
+├── .gitignore
+└── README.md
+
+````
+
+---
+
+## ⚙️ Prasyarat
+
+Pastikan environment kamu sudah memenuhi syarat berikut:
+
+- **Python 3.9+** (disarankan 3.10)
+- **Git**
+- OS: Windows / Linux / macOS
+
+Cek versi Python:
+```bash
+python --version
+````
+
+---
+
+## 📥 Clone Repository
+
+Clone project dari GitHub:
+
+```bash
+git clone https://github.com/USERNAME/REPOSITORY.git
+cd OCR-SERVICE
+```
+
+> Ganti `USERNAME/REPOSITORY` sesuai repo kamu.
+
+---
+
+## 🐍 Membuat Virtual Environment
+
+Disarankan **SELALU menggunakan virtual environment** agar dependency terisolasi.
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Jika berhasil, terminal akan berubah menjadi:
+
+```
+(venv)
 ```
 
 ---
 
-## 1️⃣ Folder & file **YANG HARUS DI-PUSH ke GitHub**
+## 📦 Install Dependency
 
-### ✅ **WAJIB MASUK GITHUB**
+Install semua dependency dari `requirements.txt`:
 
-```
-OCR-SERVICE/
-├── app/                  ✅ source code python (OCR, service, utils)
-├── requirements.txt      ✅ daftar dependency
-├── README.md             ✅ dokumentasi
-├── .gitignore            ✅ aturan exclude
-├── main.py / app.py      ✅ entry point (jika ada)
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-📌 **Intinya:**
-
-> Hanya **kode + konfigurasi**, bukan environment & data sementara
-
----
-
-## 2️⃣ Folder & file **YANG TIDAK BOLEH MASUK GITHUB**
-
-### ❌ **JANGAN DI-PUSH**
-
-```
-venv/                     ❌ virtual environment (berat & OS specific)
-uploads/                  ❌ hasil upload user / file OCR
-__pycache__/              ❌ cache python
-*.log                     ❌ log runtime
-.env                      ❌ secret / API key
-```
-
----
-
-## 3️⃣ Buat file `.gitignore` (PALING PENTING)
-
-Di root `OCR-SERVICE/`, buat file:
-
-```
-.gitignore
-```
-
-Isi **lengkap & aman**:
-
-```
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Virtual Environment
-venv/
-.env
-.env.*
-
-# Uploads / runtime files
-uploads/
-*.log
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-```
-
-📌 Dengan ini:
-
-* `venv/` ❌ tidak ke-push
-* `uploads/` ❌ tidak ke-push
-* `.env` ❌ aman
-
----
-
-## 4️⃣ `requirements.txt` (WAJIB ADA)
-
-Kalau belum ada, jalankan **di venv aktif**:
+Jika belum ada `requirements.txt`, buat dengan:
 
 ```bash
 pip freeze > requirements.txt
 ```
 
-Hasil contoh:
+---
 
-```
-paddlepaddle
-paddleocr
-opencv-python
-numpy
-flask
-```
+## 📁 Folder `uploads`
 
-📌 Di GitHub **cukup ini**, user lain tinggal:
+Folder `uploads/` digunakan untuk **menyimpan file sementara** (gambar / dokumen) yang akan diproses OCR.
+
+> Folder ini **tidak ikut GitHub** (sudah di-ignore di `.gitignore`).
+
+Jika belum ada, buat manual:
 
 ```bash
-pip install -r requirements.txt
+mkdir uploads
 ```
 
 ---
 
-## 5️⃣ Struktur FINAL sebelum push (REKOMENDASI)
+## ▶️ Menjalankan OCR Service
 
-```
-OCR-SERVICE/
-├── app/
-│   ├── ocr/
-│   │   ├── paddle_service.py
-│   │   └── __init__.py
-│   ├── utils/
-│   └── __init__.py
-│
-├── uploads/        ❌ (ignored)
-├── venv/           ❌ (ignored)
-│
-├── main.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-```
-
----
-
-## 6️⃣ Push ke GitHub (STEP BY STEP)
-
-Di root `OCR-SERVICE`:
+Masuk ke folder paddleocr:
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit - PaddleOCR service"
-git branch -M main
-git remote add origin https://github.com/USERNAME/REPO.git
-git push -u origin main
+cd app/services/paddleocr
 ```
 
-📌 Pastikan **tidak ada venv / uploads ikut**:
-
-```bash
-git status
-```
-
----
-
-## 7️⃣ README.md (contoh minimal)
-
-````md
-# OCR Service - PaddleOCR
-
-## Setup
-```bash
-python -m venv venv
-source venv/bin/activate  # windows: venv\Scripts\activate
-pip install -r requirements.txt
-````
-
-## Run
+Jalankan service:
 
 ```bash
 python main.py
 ```
 
+Jika berhasil, service siap menerima proses OCR.
+
+---
+
+## 🧠 Cara Kerja Singkat
+
+1. File gambar/dokumen disimpan sementara di folder `uploads/`
+2. `ocr.py` memproses file menggunakan **PaddleOCR**
+3. Hasil OCR berupa **raw text**
+4. Output bisa dikirim kembali ke backend (Laravel / API / CLI)
+
+---
+
+## 🔗 Integrasi dengan Backend (Laravel)
+
+Biasanya service ini:
+
+* Dipanggil via **command / API**
+* Backend hanya mengirim **path file**
+* OCR service mengembalikan **hasil text**
+
+Contoh alur:
+
+```
+Laravel Upload → Python OCR → Raw Text → Simpan ke Database
 ```
 
 ---
 
-## 8️⃣ PENTING (Kaitannya dengan Laravel kamu 🔥)
+## 🚫 File yang Tidak Masuk GitHub
 
-Karena ini dipanggil dari Laravel:
-- Python service = **stateless**
-- `uploads/` → runtime only
-- GitHub hanya simpan **engine OCR**
+Berikut file/folder yang **dikecualikan**:
 
-✔️ Ini **clean architecture**
-✔️ Aman buat deploy
-✔️ Aman buat kolaborasi
+* `venv/`
+* `uploads/`
+* `__pycache__/`
+* `.env`
+
+Semua aturan ada di `.gitignore`.
+
+---
+
+## 📌 Catatan Penting
+
+* Jangan upload `venv/` ke GitHub
+* Jangan commit file hasil OCR
+* Gunakan environment terpisah untuk production
+* Pastikan PaddleOCR sesuai arsitektur OS (CPU/GPU)
+
+---
+
+## 👨‍💻 Author
+
+Dikembangkan oleh **Rizky Ramadhan**
+OCR Service menggunakan **PaddleOCR (Python)**
+
+---
+
+## 📄 License
+
+Project ini bebas digunakan untuk kebutuhan internal / pembelajaran.
+
+```
 
 ---
 
 Kalau mau, aku bisa:
-- ✅ Rapihin struktur `app/ocr` sesuai clean architecture
-- ✅ Buatin `.env.example`
-- ✅ Buatin **Dockerfile** biar lebih rapi buat production
-- ✅ Cocokin endpoint Python ↔ Laravel
+- 🔥 Sesuaikan README untuk **production**
+- 🔥 Tambahin **API usage example**
+- 🔥 Buatin **Docker + docker-compose**
+- 🔥 Buatin **diagram arsitektur Laravel ↔ Python OCR**
 
 Tinggal bilang mau lanjut ke mana 🚀
 ```
