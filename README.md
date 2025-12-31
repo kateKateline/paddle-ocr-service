@@ -3,7 +3,7 @@
 
 # OCR Service — PaddleOCR (Python)
 
-Layanan OCR (Optical Character Recognition) berbasis **PaddleOCR** untuk ekstraksi teks dari gambar atau dokumen. Arsitektur ini dirancang sebagai *microservice* mandiri yang menjadi pelengkap untuk repositori **[bill-checker](https://github.com/KateKateline/bill-checker)**.
+Layanan OCR (Optical Character Recognition) berbasis **PaddleOCR** untuk ekstraksi teks dari gambar atau dokumen. Arsitektur ini dirancang sebagai *microservice* mandiri yang menjadi pelengkap untuk repositori **[Bill Check](https://github.com/KateKateline/bill-check)**.
 
 ## 🚀 Fitur Utama
 
@@ -73,6 +73,6 @@ uvicorn app.main:app --reload
 
 ## 📝 Note
 
-Service ini berfungsi untuk menerima kiriman gambar dari **[bill-checker](https://github.com/KateKateline/bill-checker)** dan mengembalikan hasil pembacaan teks (raw text) untuk diproses lebih lanjut oleh sistem utama.
+Service ini berfungsi untuk menerima kiriman gambar dari **[Bill Check](https://github.com/KateKateline/bill-check)** dan mengembalikan hasil pembacaan teks (raw text) untuk diproses lebih lanjut oleh sistem utama.
 
 ---
